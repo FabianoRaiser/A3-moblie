@@ -63,6 +63,9 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
+  assets:
+    - lib/assets/images/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -90,10 +93,11 @@ flutter:
   fonts:
     - family: RobotoSerif
       fonts:
-        - asset: fonts/RobotoSerif-Regular.ttf
-        - asset: fonts/RobotoSerif-Bold.ttf
+        - asset: lib/assets/fonts/RobotoSerif-Regular.ttf
+          style: normal
+        - asset: lib/assets/fonts/RobotoSerif-Bold.ttf
           weight: 700
-        - asset: fonts/RobotoSerif-Italic.ttf
+        - asset: lib/assets/fonts/RobotoSerif-Italic.ttf
           style: italic
+
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
