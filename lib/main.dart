@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFFE8B86D),
         hintColor: const Color(0xFFA1D6B2),
         cardColor: const Color(0xFFCEDF9F),
-        fontFamily: '',
+        fontFamily: 'RobotoSerif',
         useMaterial3: true,
         searchBarTheme: const SearchBarThemeData(
           backgroundColor: WidgetStatePropertyAll(Colors.white),

@@ -12,7 +12,13 @@ class LocationCard extends StatelessWidget {
         height: 120,
         child: Column(
           children: [
-            Text("Hoje estamos no Bairro"),
+            Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Text(
+                "Hoje estamos no Bairro",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Card(
