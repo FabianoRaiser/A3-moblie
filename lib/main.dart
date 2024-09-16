@@ -2,6 +2,7 @@ import 'package:colonial/src/theme/colors.dart';
 import 'package:colonial/src/utils/image_utils.dart';
 import 'package:colonial/src/widgets/location_card.dart';
 import 'package:colonial/src/widgets/product_card.dart';
+import 'package:colonial/src/widgets/search_card.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,6 +23,10 @@ class MyApp extends StatelessWidget {
         cardColor: const Color(0xFFCEDF9F),
         fontFamily: '',
         useMaterial3: true,
+        searchBarTheme: const SearchBarThemeData(
+          backgroundColor: WidgetStatePropertyAll(Colors.white),
+          padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 16.0))
+        ),
 
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -70,10 +75,11 @@ class _HomePageState extends State<HomePage> {
 
           // Homepage
           ListView(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
 
-            children: [
+            children: const [
               LocationCard(),
+              SearchCard(),
               ProductCard(),
               ProductCard(),
               ProductCard(),
@@ -88,9 +94,9 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // Shopping Cart page
-          Card(
+          const Card(
             color: Colors.blue,
-            margin: const EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
             child: SizedBox.expand(
               child: Center(
                 child: Text("Carrinho"),
@@ -99,9 +105,9 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // Previous Orders Page
-          Card(
+          const Card(
             color: Colors.blue,
-            margin: const EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
             child: SizedBox.expand(
               child: Center(
                 child: Text("Pedidos"),

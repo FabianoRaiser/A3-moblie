@@ -7,13 +7,13 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       color: cardColor,
-      child: Container(
+      child: SizedBox(
         height: 270,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 180,
               child: Image.network(
                 '',
@@ -25,7 +25,7 @@ class ProductCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Produto", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
