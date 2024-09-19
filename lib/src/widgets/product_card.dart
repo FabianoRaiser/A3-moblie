@@ -1,9 +1,19 @@
 import 'package:colonial/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+class ProductCard extends StatefulWidget {
+  final String name;
+  final String imageLink;
+  final String value;
+  final String expirationTime;
 
+  const ProductCard(this.name, this.imageLink, this.value, this.expirationTime,{super.key});
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,7 +26,7 @@ class ProductCard extends StatelessWidget {
             SizedBox(
               height: 180,
               child: Image.network(
-                '',
+                widget.imageLink,
                 fit: BoxFit.cover,
               ),
             ),
@@ -25,12 +35,12 @@ class ProductCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Produto", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
-                      Text("R\$ 00,00", style: TextStyle(fontSize: 16),),
-                      Text("Validade: 0 dias", style: TextStyle(fontSize: 12, color: Colors.black54),),
+                      Text(widget.name , style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
+                      Text("R\$ ${widget.value.toString()}", style: const TextStyle(fontSize: 16),),
+                      Text("Validade: ${widget.expirationTime}", style: const TextStyle(fontSize: 12, color: Colors.black54),),
                     ],
                   ),
                   ElevatedButton(
