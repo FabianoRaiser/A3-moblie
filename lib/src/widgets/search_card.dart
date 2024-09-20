@@ -15,6 +15,7 @@ class _SearchCardState extends State<SearchCard> {
         controller: controller,
         onTap: () {
           controller.openView();
+
         },
         onChanged: (_) {
           controller.openView();
