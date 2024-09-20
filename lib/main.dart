@@ -1,3 +1,4 @@
+import 'package:colonial/src/data/product_data.dart';
 import 'package:colonial/src/theme/colonial_theme.dart';
 import 'package:colonial/src/theme/colors.dart';
 import 'package:colonial/src/utils/image_utils.dart';
@@ -72,34 +73,45 @@ class _HomePageState extends State<HomePage> {
         ),
         body: <Widget>[
           // Homepage
-          ListView(
-            padding: const EdgeInsets.all(8.0),
-            children: const [
-              LocationCard(),
-              SearchCard(),
-              ProductCard('Produto','link imagem', 'valor', 'validade' ),
-
+          CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(
+                child: LocationCard(),
+              ),
+              const SliverToBoxAdapter(child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SearchCard(),
+              )),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                  return ProductCard(
+                      produtos[index].name,
+                      produtos[index].linkImagen,
+                      produtos[index].value,
+                      produtos[index].validade);
+                }, childCount: produtos.length),
+              )
             ],
           ),
 
           // Shopping Cart page
-              Card(
-                color: secundaryColor,
-                margin: EdgeInsets.all(8.0),
-                child: SizedBox.expand(
-                  child: Center(
-                    child:
-                    ListView(
-                      children: [
-                        ShoppingKartItem('produto1', 'Valor'),
-                        ShoppingKartItem('Produto2', 'Valor'),
-                        ShoppingKartItem('Produto3', 'valor'),
-                        ShoppingKartItem('produto4', 'valor'),
-                      ],
-                    ),
-                  ),
+          Card(
+            color: secundaryColor,
+            margin: EdgeInsets.all(8.0),
+            child: SizedBox.expand(
+              child: Center(
+                child: ListView(
+                  children: [
+                    ShoppingKartItem('produto1', 'Valor'),
+                    ShoppingKartItem('Produto2', 'Valor'),
+                    ShoppingKartItem('Produto3', 'valor'),
+                    ShoppingKartItem('produto4', 'valor'),
+                  ],
                 ),
               ),
+            ),
+          ),
 
           // Previous Orders Page
           const Card(

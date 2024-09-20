@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatefulWidget {
   final String name;
   final String imageLink;
-  final String value;
+  final double value;
   final String expirationTime;
 
   const ProductCard(this.name, this.imageLink, this.value, this.expirationTime,{super.key});
@@ -25,7 +25,7 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             SizedBox(
               height: 180,
-              child: Image.network(
+              child: Image.asset(
                 widget.imageLink,
                 fit: BoxFit.cover,
               ),
