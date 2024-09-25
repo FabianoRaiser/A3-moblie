@@ -1,4 +1,5 @@
 import 'package:colonial/src/data/product_data.dart';
+import 'package:colonial/src/screens/home.dart';
 import 'package:colonial/src/theme/colonial_theme.dart';
 import 'package:colonial/src/theme/colors.dart';
 import 'package:colonial/src/utils/image_utils.dart';
@@ -73,27 +74,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: <Widget>[
           // Homepage
-          CustomScrollView(
-            slivers: [
-              const SliverToBoxAdapter(
-                child: LocationCard(),
-              ),
-              const SliverToBoxAdapter(child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SearchCard(),
-              )),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                  return ProductCard(
-                      produtos[index].name,
-                      produtos[index].linkImagen,
-                      produtos[index].value,
-                      produtos[index].validade);
-                }, childCount: produtos.length),
-              )
-            ],
-          ),
+          Home(produtos: produtos),
 
           // Shopping Cart page
           Card(
