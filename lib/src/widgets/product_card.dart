@@ -39,7 +39,7 @@ class _ProductCardState extends State<ProductCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(widget.name , style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
-                      Text("R\$ ${widget.value.toString()}", style: const TextStyle(fontSize: 16),),
+                      Text("R\$ ${widget.value.toStringAsFixed(2)}", style: const TextStyle(fontSize: 16),),
                       Text("Validade: ${widget.expirationTime}", style: const TextStyle(fontSize: 12, color: Colors.black54),),
                     ],
                   ),
