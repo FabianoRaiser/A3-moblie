@@ -1,13 +1,24 @@
+import 'package:colonial/src/controllers/shopping_kart_provider.dart';
 import 'package:colonial/src/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/kart_item.dart';
 
 class ProductCard extends StatefulWidget {
+  final String id;
   final String name;
   final String imageLink;
-  final double value;
+  final double price;
   final String expirationTime;
 
-  const ProductCard(this.name, this.imageLink, this.value, this.expirationTime,{super.key});
+  const ProductCard(
+      {required this.id,
+      required this.name,
+      required this.imageLink,
+      required this.price,
+      required this.expirationTime,
+      super.key});
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -31,20 +42,37 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.name , style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
-                      Text("R\$ ${widget.value.toStringAsFixed(2)}", style: const TextStyle(fontSize: 16),),
-                      Text("Validade: ${widget.expirationTime}", style: const TextStyle(fontSize: 12, color: Colors.black54),),
+                      Text(
+                        widget.name,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 20),
+                      ),
+                      Text(
+                        "R\$ ${widget.price.toStringAsFixed(2)}",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        "Validade: ${widget.expirationTime}",
+                        style: const TextStyle(
+                            fontSize: 12, color: Colors.black54),
+                      ),
                     ],
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        final kartProvider = Provider.of<ShoppingKartProvider>(
+                            context,
+                            listen: false);
+                        kartProvider.addItem(KartItem(id: widget.id, name: widget.name, price: widget.price, quantity: 1));
+                      },
                       child: const Icon(
                         Icons.add_shopping_cart,
                       ))

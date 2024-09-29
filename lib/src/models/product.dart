@@ -1,8 +1,14 @@
 class Produto {
+  final String id;
   final String name;
   final String linkImagen;
   final String validade;
-  final double value;
+  final double price;
 
-  Produto(this.name, this.linkImagen, this.validade, this.value);
+  Produto(
+      {required this.id,
+      required this.name,
+      required this.linkImagen,
+      required this.validade,
+      required this.price});
 }

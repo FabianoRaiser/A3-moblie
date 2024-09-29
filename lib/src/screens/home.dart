@@ -12,25 +12,26 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView
-      (
+    return CustomScrollView(
       slivers: [
         const SliverToBoxAdapter(
           child: LocationCard(),
         ),
-        const SliverToBoxAdapter(child: Padding(
+        const SliverToBoxAdapter(
+            child: Padding(
           padding: EdgeInsets.all(8.0),
           child: SearchCard(),
         )),
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                return ProductCard(
-                    produtos[index].name,
-                    produtos[index].linkImagen,
-                    produtos[index].value,
-                    produtos[index].validade);
-              }, childCount: produtos.length),
+          delegate:
+              SliverChildBuilderDelegate((BuildContext context, int index) {
+            return ProductCard(
+                id: produtos[index].id,
+                name: produtos[index].name,
+                imageLink: produtos[index].linkImagen,
+                price: produtos[index].price,
+                expirationTime: produtos[index].validade);
+          }, childCount: produtos.length),
         )
       ],
     );
