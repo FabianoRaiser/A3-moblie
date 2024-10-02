@@ -31,6 +31,7 @@ class _ShoppingKartState extends State<ShoppingKart> {
                       itemId: item.id,
                       productName: item.name,
                       productPrice: item.price,
+
                     );
                   }, itemCount: itensDoCarrinho.length),
                 )

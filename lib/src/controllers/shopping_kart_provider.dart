@@ -2,7 +2,7 @@ import 'package:colonial/src/models/kart_item.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingKartProvider extends ChangeNotifier {
-  List<KartItem> _itens = [];
+  final List<KartItem> _itens = [];
 
   List<KartItem> get itens => _itens;
 
@@ -16,6 +16,13 @@ class ShoppingKartProvider extends ChangeNotifier {
     final itemToRemove = _itens.firstWhere((item) => item.id == itemID, // tenta encontrar o item
         orElse: () => KartItem(id: "", name: "", price: 0, quantity: 0)); // se não retorna um item vazio
     _itens.remove(itemToRemove); // remove o item, mesmo se vazio
+    notifyListeners();
+  }
+
+  void updateQuantity(String itemID, int qtd){
+    final itemUpdateQtd = _itens.firstWhere((item) => item.id == itemID);
+    itemUpdateQtd.quantity = qtd;
+    print(itemUpdateQtd.quantity);
     notifyListeners();
   }
 
