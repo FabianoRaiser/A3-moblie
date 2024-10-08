@@ -1,6 +1,7 @@
 import 'package:colonial/src/controllers/shopping_kart_provider.dart';
 import 'package:colonial/src/data/product_data.dart';
 import 'package:colonial/src/screens/home.dart';
+import 'package:colonial/src/screens/login.dart';
 import 'package:colonial/src/screens/shopping_kart.dart';
 import 'package:colonial/src/theme/colonial_theme.dart';
 import 'package:colonial/src/theme/colors.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Colonial App',
       theme: colonialTheme,
-      home: const HomePage(),
+      home: const LoginScreen(),
     );
   }
 }
