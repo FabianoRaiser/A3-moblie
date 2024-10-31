@@ -1,4 +1,5 @@
 import 'package:colonial/src/screens/login.dart';
+import 'package:colonial/src/services/new_user_api.dart';
 import 'package:colonial/src/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -55,11 +56,11 @@ class _NewUserState extends State<NewUser> {
                       TextFormField(
                         controller: _userController,
                         decoration: const InputDecoration(
-                          labelText: 'Nome de Usuário',
+                          labelText: 'Nome',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor, insira seu nome de usuário';
+                            return 'Por favor, insira seu nome';
                           }
                           return null;
                         },
@@ -69,7 +70,6 @@ class _NewUserState extends State<NewUser> {
                         decoration: const InputDecoration(
                           labelText: 'Telefone',
                         ),
-                        obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Por favor, insira seu telefone';
@@ -100,11 +100,14 @@ class _NewUserState extends State<NewUser> {
                           if (value == null || value.isEmpty) {
                             return 'Por favor, insira sua senha';
                           }
+                          if (value != _passwordController.text) {
+                            return 'As senhas não coincidem';
+                          }
                           return null;
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -131,13 +134,11 @@ class _NewUserState extends State<NewUser> {
                             ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  // Login simulado
-                                  // Substituir depois pelo login real
-                                  // Navigator.pushReplacement(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => const HomePage()),
-                                  // );
+                                  newUserAPI(
+                                      _userController.text,
+                                      _phoneController.text,
+                                      _passwordController.text,
+                                      context);
                                 }
                               },
                               child: const Text(

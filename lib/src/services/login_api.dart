@@ -33,14 +33,14 @@ Future<void> loginAPI(String contact, String password,
     Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => const HomePage()),);
   } else if (response.statusCode == 401) {
-    print('Usuário ou senha incorretos');
+    print('Telefone ou senha incorretos');
 
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Erro de Login'),
-            content: const Text('Usuário ou Senha inválidos'),
+            content: const Text('Telefone ou Senha inválidos'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {

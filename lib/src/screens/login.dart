@@ -49,10 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: _contactController,
                         decoration: const InputDecoration(
-                            labelText: 'Usuário', icon: Icon(Icons.person)),
+                            labelText: 'Telefone', icon: Icon(Icons.person)),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor, insira seu nome de usuário';
+                            return 'Por favor, insira seu telefone';
                           }
                           return null;
                         },
