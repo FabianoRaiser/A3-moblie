@@ -1,4 +1,5 @@
 import 'package:colonial/src/controllers/shopping_kart_provider.dart';
+import 'package:colonial/src/controllers/user_provider.dart';
 import 'package:colonial/src/data/product_data.dart';
 import 'package:colonial/src/screens/home.dart';
 import 'package:colonial/src/screens/login.dart';
@@ -15,9 +16,16 @@ void main() {
   // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ShoppingKartProvider(),
-      child: MyApp()
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ShoppingKartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+        ),
+      ],
+      child: MyApp(),
     ),
   );
 }
@@ -44,8 +52,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
-
-
 
   @override
   Widget build(BuildContext context) {

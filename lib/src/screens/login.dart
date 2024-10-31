@@ -1,4 +1,6 @@
 import 'package:colonial/main.dart';
+import 'package:colonial/src/screens/new_user.dart';
+import 'package:colonial/src/services/login_api.dart';
 import 'package:colonial/src/theme/colors.dart';
 import 'package:colonial/src/utils/image_utils.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _contactController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -45,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextFormField(
-                        controller: _emailController,
+                        controller: _contactController,
                         decoration: const InputDecoration(
                             labelText: 'Usuário', icon: Icon(Icons.person)),
                         validator: (value) {
@@ -70,20 +72,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // Login simulado
-                            // Substituir depois pelo login real
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomePage()),
-                            );
+                            loginAPI(_contactController.text.toString(),
+                                _passwordController.text.toString(), context);
                           }
                         },
                         child: const Text(
                           'Entrar',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor:
+                              WidgetStatePropertyAll(Colors.white54),
+                          // textStyle: TextStyle(color:),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const NewUser()),
+                          );
+                        },
+                        child: const Text(
+                          'Criar conta',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
