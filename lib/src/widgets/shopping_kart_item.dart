@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingKartItem extends StatefulWidget {
-  final String itemId;
+  final int itemId;
   final String productName;
   final double productPrice;
   int quantity;
@@ -33,7 +33,7 @@ class _ShoppingKartItemState extends State<ShoppingKartItem> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: 96,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

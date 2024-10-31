@@ -6,18 +6,16 @@ import 'package:provider/provider.dart';
 import '../models/kart_item.dart';
 
 class ProductCard extends StatefulWidget {
-  final String id;
+  final int id;
   final String name;
   final String imageLink;
   final double price;
-  final String expirationTime;
 
   const ProductCard(
       {required this.id,
       required this.name,
       required this.imageLink,
       required this.price,
-      required this.expirationTime,
       super.key});
 
   @override
@@ -36,7 +34,7 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             SizedBox(
               height: 180,
-              child: Image.asset(
+              child: Image.network(
                 widget.imageLink,
                 fit: BoxFit.cover,
               ),
@@ -66,7 +64,11 @@ class _ProductCardState extends State<ProductCard> {
                         final kartProvider = Provider.of<ShoppingKartProvider>(
                             context,
                             listen: false);
-                        kartProvider.addItem(KartItem(id: widget.id, name: widget.name, price: widget.price, quantity: 1));
+                        kartProvider.addItem(KartItem(
+                            id: widget.id,
+                            name: widget.name,
+                            price: widget.price,
+                            quantity: 1));
                       },
                       child: const Icon(
                         Icons.add_shopping_cart,

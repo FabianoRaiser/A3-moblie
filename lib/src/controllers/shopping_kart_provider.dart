@@ -12,14 +12,14 @@ class ShoppingKartProvider extends ChangeNotifier {
     print(_itens[0].name);
   }
 
-  void removeItem(String itemID) {
+  void removeItem(int itemID) {
     final itemToRemove = _itens.firstWhere((item) => item.id == itemID, // tenta encontrar o item
-        orElse: () => KartItem(id: "", name: "", price: 0, quantity: 0)); // se não retorna um item vazio
+        orElse: () => KartItem(id: 0, name: "", price: 0, quantity: 0)); // se não retorna um item vazio
     _itens.remove(itemToRemove); // remove o item, mesmo se vazio
     notifyListeners();
   }
 
-  void updateQuantity(String itemID, int qtd){
+  void updateQuantity(int itemID, int qtd){
     final itemUpdateQtd = _itens.firstWhere((item) => item.id == itemID);
     itemUpdateQtd.quantity = qtd;
     print(itemUpdateQtd.quantity);

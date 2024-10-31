@@ -1,5 +1,5 @@
 class KartItem {
-  final String id;
+  final int id;
   final String name;
   final double price;
   int quantity;

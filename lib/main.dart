@@ -1,9 +1,10 @@
 import 'package:colonial/src/controllers/shopping_kart_provider.dart';
 import 'package:colonial/src/controllers/user_provider.dart';
-import 'package:colonial/src/data/product_data.dart';
+import 'package:colonial/src/models/product.dart';
 import 'package:colonial/src/screens/home.dart';
 import 'package:colonial/src/screens/login.dart';
 import 'package:colonial/src/screens/shopping_kart.dart';
+import 'package:colonial/src/services/products_api.dart';
 import 'package:colonial/src/theme/colonial_theme.dart';
 import 'package:colonial/src/theme/colors.dart';
 import 'package:colonial/src/utils/image_utils.dart';
@@ -52,6 +53,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+  List<Produto> _produtos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts();
+  }
+
+  Future<void> _loadProducts() async {
+    try {
+      final products = await getProdutos();
+      setState(() {
+        _produtos = products;
+      });
+    } catch (err) {
+      print('Erro ao carregar produtos: $err');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +106,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: <Widget>[
           // Homepage
-          Home(produtos: produtosCatalog),
+          Home(produtos: _produtos),
 
           // Shopping Cart page
           ShoppingKart(),
