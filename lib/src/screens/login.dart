@@ -1,4 +1,4 @@
-import 'package:colonial/main.dart';
+
 import 'package:colonial/src/screens/new_user.dart';
 import 'package:colonial/src/services/login_api.dart';
 import 'package:colonial/src/theme/colors.dart';
