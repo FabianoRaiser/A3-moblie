@@ -12,6 +12,10 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int? getUserId() {
+    return _user?.id;
+  }
+
   void logout() {
     _user = null;
     notifyListeners();

@@ -1,11 +1,14 @@
 import 'package:colonial/src/controllers/shopping_kart_provider.dart';
+import 'package:colonial/src/controllers/user_provider.dart';
+import 'package:colonial/src/services/orders_api.dart';
 import 'package:colonial/src/theme/colors.dart';
 import 'package:colonial/src/widgets/shopping_kart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ShoppingKart extends StatefulWidget {
+import '../models/product.dart';
 
+class ShoppingKart extends StatefulWidget {
   ShoppingKart({super.key});
 
   @override
@@ -13,32 +16,122 @@ class ShoppingKart extends StatefulWidget {
 }
 
 class _ShoppingKartState extends State<ShoppingKart> {
+  String? customerAddress;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ShoppingKartProvider>(
       builder: (context, shoppingKartProvider, child) {
         final itensDoCarrinho = shoppingKartProvider.itens;
+        String? customerAddress;
 
-        return Card(
-          color: secundaryColor,
-          margin: EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-                child: ListView.builder(
-                  itemBuilder: (context, index){
-                    final item = itensDoCarrinho[index];
-                    return ShoppingKartItem(
-                      itemId: item.id,
-                      productName: item.name,
-                      productPrice: item.price,
-
-                    );
-                  }, itemCount: itensDoCarrinho.length),
-                )
+        return Column(
+          children: [
+            Expanded(
+              child: Card(
+                color: secundaryColor,
+                margin: EdgeInsets.all(8.0),
+                child: SizedBox.expand(
+                    child: Center(
+                  child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        final item = itensDoCarrinho[index];
+                        return ShoppingKartItem(
+                          itemId: item.id,
+                          productName: item.name,
+                          productPrice: item.price,
+                        );
+                      },
+                      itemCount: itensDoCarrinho.length),
+                )),
+              ),
             ),
-          );
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  style: const ButtonStyle(
+                      padding: WidgetStatePropertyAll(
+                          EdgeInsets.symmetric(vertical: 16.0))),
+                  onPressed: () {
+                    _finishOrder(context);
+                    print(customerAddress);
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart_checkout,
+                        size: 36,
+                      ),
+                      Text(
+                        'Finalizar Carrinho',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+          ],
+        );
       },
-
     );
+  }
+
+  Future<void> _finishOrder (BuildContext context) async {
+    customerAddress = await _showAddressDialog(context);
+
+    final customerId = context.read<UserProvider>().getUserId();
+    final cartItems = context.read<ShoppingKartProvider>().itens;
+
+    if (customerId != null && cartItems != [] ) {
+      final products = cartItems.map((item) {
+        return OrderItem(
+          id: item.id,
+          amount: item.quantity,
+        );
+      }).toList();
+
+      newOrder(customerId, customerAddress!, products);
+    }
+  }
+}
+
+Future<String?> _showAddressDialog(BuildContext context) async {
+  String? customerAddress;
+
+  await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Informe o endereço de entrega'),
+          content: TextField(
+            onChanged: (value) {
+              customerAddress = value;
+            },
+            decoration: const InputDecoration(hintText: 'Endereço'),
+          ),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancelar')),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Confirmar')),
+          ],
+        );
+      });
+
+  if (customerAddress != null) {
+    print('Endereço: $customerAddress');
+    return customerAddress;
+  } else {
+    throw Exception('Erro no endereço de entrega');
   }
 }

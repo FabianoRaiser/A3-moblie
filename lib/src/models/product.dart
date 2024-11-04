@@ -19,3 +19,15 @@ class Produto {
     );
   }
 }
+
+class OrderItem {
+  final int id;
+  final int amount;
+
+  OrderItem({required this.id, required this.amount});
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'amount': amount,
+  };
+}

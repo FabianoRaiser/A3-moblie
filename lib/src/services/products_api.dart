@@ -17,3 +17,4 @@ Future<List<Produto>> getProdutos() async {
     throw Exception('Falha ao carregar produtos');
   }
 }
+
