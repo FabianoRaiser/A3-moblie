@@ -26,7 +26,7 @@ void main() {
           create: (context) => UserProvider(),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

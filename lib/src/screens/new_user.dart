@@ -26,7 +26,7 @@ class _NewUserState extends State<NewUser> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back)),
       ),
       backgroundColor: primaryColor,
       body: Padding(

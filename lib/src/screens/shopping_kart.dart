@@ -2,10 +2,10 @@ import 'package:colonial/src/controllers/shopping_kart_provider.dart';
 import 'package:colonial/src/controllers/user_provider.dart';
 import 'package:colonial/src/services/orders_api.dart';
 import 'package:colonial/src/theme/colors.dart';
+import 'package:colonial/src/utils/image_utils.dart';
 import 'package:colonial/src/widgets/shopping_kart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/product.dart';
 
 class ShoppingKart extends StatefulWidget {
@@ -30,7 +30,7 @@ class _ShoppingKartState extends State<ShoppingKart> {
             Expanded(
               child: Card(
                 color: secundaryColor,
-                margin: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(8.0),
                 child: SizedBox.expand(
                     child: Center(
                   child: ListView.builder(
@@ -45,6 +45,9 @@ class _ShoppingKartState extends State<ShoppingKart> {
                       itemCount: itensDoCarrinho.length),
                 )),
               ),
+            ),
+            Card(
+              child: Text('Valor total: R\$ ${shoppingKartProvider.totalPrice.toStringAsFixed(2)}'),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -93,8 +96,15 @@ class _ShoppingKartState extends State<ShoppingKart> {
           amount: item.quantity,
         );
       }).toList();
+      Future<bool> payed = _showPayment(context);
 
-      newOrder(customerId, customerAddress!, products);
+      if (await payed) {
+        newOrder(customerId, customerAddress!, products);
+      } else {
+        print('Erro no pagamento');
+      }
+
+
     }
   }
 }
@@ -134,4 +144,38 @@ Future<String?> _showAddressDialog(BuildContext context) async {
   } else {
     throw Exception('Erro no endereço de entrega');
   }
+}
+
+Future<bool> _showPayment(BuildContext context) async{
+  bool payed = false;
+
+  await showDialog(context: context, builder: (BuildContext context) {
+    return AlertDialog(
+      title: const Text('Pagamento'),
+      content: SizedBox(
+        height: 250,
+        child: Column(
+          children: [
+            Image.asset(getImagePath('qr-code-to-payment.png'), height: 200,),
+            const Text('Pague com Pix'),
+          ],
+        ),
+      ),
+    actions: [
+      TextButton(onPressed: () {
+        payed = false;
+        Navigator.of(context).pop();
+      }, child: const Text('Cancelar')),
+      TextButton(onPressed: () {
+        payed = true;
+        Navigator.of(context).pop();
+
+    }, child: const Text('Realizado')),
+
+    ],
+
+    );
+  });
+
+  return payed;
 }

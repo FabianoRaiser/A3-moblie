@@ -27,6 +27,6 @@ class ShoppingKartProvider extends ChangeNotifier {
   }
 
   double get totalPrice {
-    return _itens.fold(0, (sum, item) => sum + item.price);
+    return _itens.fold(0, (sum, item) => sum + (item.price * item.quantity));
   }
 }
