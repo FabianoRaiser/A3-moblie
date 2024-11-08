@@ -82,16 +82,34 @@ class _HomePageState extends State<HomePage> {
                   height: 50)),
         ),
         bottomNavigationBar: NavigationBar(
-          destinations: const <Widget>[
-            NavigationDestination(
+          destinations:  <Widget>[
+            const NavigationDestination(
                 selectedIcon: Icon(Icons.home),
                 icon: Icon(Icons.home_outlined),
                 label: 'Inicio'),
             NavigationDestination(
                 selectedIcon: Icon(Icons.shopping_cart),
-                icon: Icon(Icons.shopping_cart_outlined),
+                icon: Consumer<ShoppingKartProvider>(builder: (context, cartProvider, _) {
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      const Icon(Icons.shopping_cart_outlined),
+                      if (cartProvider.itemCount > 0)
+                        Positioned(
+                          top: -5,
+                          right: -5,
+                          child: Badge(
+                            label: Text('${cartProvider.itemCount}'),
+                            backgroundColor: primaryColor,
+                            textColor: Colors.white,
+                            isLabelVisible: true,
+                          ),
+                        )
+                    ],
+                  );
+                }),
                 label: 'Carrinho'),
-            NavigationDestination(
+            const NavigationDestination(
                 selectedIcon: Icon(Icons.description),
                 icon: Icon(Icons.description_outlined),
                 label: 'Pedidos'),

@@ -21,7 +21,6 @@ class ShoppingKartItem extends StatefulWidget {
 }
 
 class _ShoppingKartItemState extends State<ShoppingKartItem> {
-  int qtd = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class _ShoppingKartItemState extends State<ShoppingKartItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '$qtd',
+                      '${widget.quantity}',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           overflow: TextOverflow.ellipsis),
@@ -60,12 +59,12 @@ class _ShoppingKartItemState extends State<ShoppingKartItem> {
               Row(
                 children: [
                   Visibility(
-                    visible: qtd >= 2,
+                    visible: widget.quantity >= 2,
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            qtd--;
-                            shoppingKartProvider.updateQuantity(widget.itemId, qtd);
+                            widget.quantity--;
+                            shoppingKartProvider.updateQuantity(widget.itemId, widget.quantity);
                           });
                         },
                         style: const ButtonStyle(
@@ -79,8 +78,8 @@ class _ShoppingKartItemState extends State<ShoppingKartItem> {
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          qtd++;
-                          shoppingKartProvider.updateQuantity(widget.itemId, qtd);
+                          widget.quantity++;
+                          shoppingKartProvider.updateQuantity(widget.itemId, widget.quantity);
                         });
                       },
                       style: const ButtonStyle(

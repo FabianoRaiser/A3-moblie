@@ -40,6 +40,7 @@ class _ShoppingKartState extends State<ShoppingKart> {
                           itemId: item.id,
                           productName: item.name,
                           productPrice: item.price,
+                          quantity: item.quantity,
                         );
                       },
                       itemCount: itensDoCarrinho.length),
@@ -47,7 +48,23 @@ class _ShoppingKartState extends State<ShoppingKart> {
               ),
             ),
             Card(
-              child: Text('Valor total: R\$ ${shoppingKartProvider.totalPrice.toStringAsFixed(2)}'),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Valor total:',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      'R\$ ${shoppingKartProvider.totalPrice.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -83,13 +100,13 @@ class _ShoppingKartState extends State<ShoppingKart> {
     );
   }
 
-  Future<void> _finishOrder (BuildContext context) async {
+  Future<void> _finishOrder(BuildContext context) async {
     customerAddress = await _showAddressDialog(context);
 
     final customerId = context.read<UserProvider>().getUserId();
     final cartItems = context.read<ShoppingKartProvider>().itens;
 
-    if (customerId != null && cartItems != [] ) {
+    if (customerId != null && cartItems != []) {
       final products = cartItems.map((item) {
         return OrderItem(
           id: item.id,
@@ -103,8 +120,6 @@ class _ShoppingKartState extends State<ShoppingKart> {
       } else {
         print('Erro no pagamento');
       }
-
-
     }
   }
 }
@@ -146,36 +161,42 @@ Future<String?> _showAddressDialog(BuildContext context) async {
   }
 }
 
-Future<bool> _showPayment(BuildContext context) async{
+Future<bool> _showPayment(BuildContext context) async {
   bool payed = false;
 
-  await showDialog(context: context, builder: (BuildContext context) {
-    return AlertDialog(
-      title: const Text('Pagamento'),
-      content: SizedBox(
-        height: 250,
-        child: Column(
-          children: [
-            Image.asset(getImagePath('qr-code-to-payment.png'), height: 200,),
-            const Text('Pague com Pix'),
+  await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pagamento'),
+          content: SizedBox(
+            height: 250,
+            child: Column(
+              children: [
+                Image.asset(
+                  getImagePath('qr-code-to-payment.png'),
+                  height: 200,
+                ),
+                const Text('Pague com Pix'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  payed = false;
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancelar')),
+            TextButton(
+                onPressed: () {
+                  payed = true;
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Realizado')),
           ],
-        ),
-      ),
-    actions: [
-      TextButton(onPressed: () {
-        payed = false;
-        Navigator.of(context).pop();
-      }, child: const Text('Cancelar')),
-      TextButton(onPressed: () {
-        payed = true;
-        Navigator.of(context).pop();
-
-    }, child: const Text('Realizado')),
-
-    ],
-
-    );
-  });
+        );
+      });
 
   return payed;
 }
