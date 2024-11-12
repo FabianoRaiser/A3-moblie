@@ -3,6 +3,7 @@ import 'package:colonial/src/controllers/user_provider.dart';
 import 'package:colonial/src/models/product.dart';
 import 'package:colonial/src/screens/home.dart';
 import 'package:colonial/src/screens/login.dart';
+import 'package:colonial/src/screens/orders.dart';
 import 'package:colonial/src/screens/shopping_kart.dart';
 import 'package:colonial/src/services/products_api.dart';
 import 'package:colonial/src/theme/colonial_theme.dart';
@@ -130,15 +131,7 @@ class _HomePageState extends State<HomePage> {
           ShoppingKart(),
 
           // Previous Orders Page
-          const Card(
-            color: Colors.blue,
-            margin: EdgeInsets.all(8.0),
-            child: SizedBox.expand(
-              child: Center(
-                child: Text("Pedidos"),
-              ),
-            ),
-          ),
+          Orders(),
         ][currentPageIndex]);
   }
 }

@@ -116,7 +116,8 @@ class _ShoppingKartState extends State<ShoppingKart> {
       Future<bool> payed = _showPayment(context);
 
       if (await payed) {
-        newOrder(customerId, customerAddress!, products);
+        final cartProvider = context.read<ShoppingKartProvider>();
+        newOrder(customerId, customerAddress!, products, cartProvider);
       } else {
         print('Erro no pagamento');
       }

@@ -30,6 +30,11 @@ class ShoppingKartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void cleanCart() {
+    _itens.clear();
+    notifyListeners();
+  }
+
   void updateQuantity(int itemID, int qtd) {
     final itemUpdateQtd = _itens.firstWhere((item) => item.id == itemID);
     itemUpdateQtd.quantity = qtd;
