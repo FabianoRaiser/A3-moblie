@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
                 name: produtos[index].name,
                 imageLink: produtos[index].linkImagen,
                 price: produtos[index].price,
-                );
+                tag: produtos[index].tag);
           }, childCount: produtos.length),
         )
       ],
